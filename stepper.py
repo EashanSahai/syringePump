@@ -3,12 +3,12 @@ from time import sleep
 
 class Stepper():
 
-    DELAY_MILLI_NORMAL = 10.0 / 6
-    DELAY_MILLI_SLOW = 10.0 / 3
-    DELAY_MILLI_VERY_SLOW = 10
+    DELAY_MILLI_NORMAL = 1.0
+    DELAY_MILLI_SLOW = 10.0
+    DELAY_MILLI_VERY_SLOW = 20.0
     BOUNCE_TIME = 0.01  # Setting bounce time to 10/1000 seconds
 
-    LARGE_COUNT = 1000
+    LARGE_COUNT = 100000
 
     DIR_CW = -1
     DIR_CCW = 1
@@ -34,6 +34,7 @@ class Stepper():
         self.switch_cw = Button(pin_sw_cw, bounce_time=Stepper.BOUNCE_TIME)
         self.switch_ccw = Button(pin_sw_ccw, bounce_time=Stepper.BOUNCE_TIME)
         self.stepNo = 0
+	self.off()
 
     def off(self):
         self.pa.off()
@@ -51,10 +52,10 @@ class Stepper():
         # While there are more steps to move
         while (count > 0):
             # If dir = DIR_CW and if CW limit switches has been pressed, then return
-            if dir == Stepper.DIR_CW and self.switch_cw.is_pressed():
+            if dir == Stepper.DIR_CW and self.switch_cw.is_pressed:
                 return count
             # If dir = DIR_CCW and if CCW limit switches has been pressed, then also return
-            elif dir == Stepper.DIR_CCW and self.switch_ccw.is_pressed():
+            elif dir == Stepper.DIR_CCW and self.switch_ccw.is_pressed:
                 return count
 
             count -= 1
@@ -78,7 +79,7 @@ class Stepper():
             else:
                 delay = Stepper.DELAY_MILLI_NORMAL
 
-            sleep(delay)
+            sleep(delay/50000000.0)
 
         return count
 
