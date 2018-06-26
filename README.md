@@ -9,4 +9,6 @@ on the Pi.
 
 ## Construction
 
+The final product is designed around the BIQU 300mm 8mm
+T8 Lead Screw Set. The project
 ## Code
