@@ -28,7 +28,7 @@ class WebpageResource(object):
     def on_get(self, req, resp):
         resp.status = falcon.HTTP_200
         resp.content_type = falcon.MEDIA_HTML
-        with open('static/index.html', 'r') as file:
+        with open('/home/pi/work/syringePump/static/index.html', 'r') as file:
             resp.body = file.read()
 
 class SyringPumpResource(object):
