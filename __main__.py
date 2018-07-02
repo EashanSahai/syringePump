@@ -1,5 +1,4 @@
 from stepper import Stepper
-from time import sleep
 
 GPIO_PA = 1
 GPIO_PA_ = 7
