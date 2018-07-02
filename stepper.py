@@ -4,8 +4,8 @@ from time import sleep
 class Stepper():
 
     DELAY_MILLI_NORMAL = 1.0
-    DELAY_MILLI_SLOW = 10.0
-    DELAY_MILLI_VERY_SLOW = 20.0
+    DELAY_MILLI_SLOW = 100.0
+    DELAY_MILLI_VERY_SLOW = 10000.0
     BOUNCE_TIME = 0.01  # Setting bounce time to 10/1000 seconds
 
     LARGE_COUNT = 100000
@@ -72,14 +72,10 @@ class Stepper():
 
             self.stepNo += dir
 
-            if (count < 20):
-                delay = Stepper.DELAY_MILLI_VERY_SLOW
-            elif (count < 50):
-                delay = Stepper.DELAY_MILLI_SLOW
+            if (count < 100):
+		sleep(0.1)
             else:
-                delay = Stepper.DELAY_MILLI_NORMAL
-
-            sleep(delay/50000000.0)
+		sleep(0.001)
 
         return count
 

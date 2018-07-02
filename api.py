@@ -48,7 +48,11 @@ class SyringPumpResource(object):
     		stepper.off()
                 resp.body = "Syringe Pump emptied"
             if command == 'drop':
-                stepper.step(10, Stepper.DIR_CCW)
+		if 'dropSize' in req.params:
+			dropSize = int(req.params['dropSize'])
+		else:
+			dropSize = 10
+                stepper.step(dropSize, Stepper.DIR_CCW)
     		stepper.off()
                 resp.body = "Syring Pump dispensed one drop"
         else:
