@@ -41,12 +41,15 @@ class SyringPumpResource(object):
             command = req.params['cmd']
             if command == 'fill':
                 stepper.step_max_cw()
+    		stepper.off()
                 resp.body = "Syringe Pump filled"
             if command == 'empty':
                 stepper.step_max_ccw()
+    		stepper.off()
                 resp.body = "Syringe Pump emptied"
             if command == 'drop':
                 stepper.step(10, Stepper.DIR_CCW)
+    		stepper.off()
                 resp.body = "Syring Pump dispensed one drop"
         else:
             resp.status = falcon.HTTP_400
@@ -81,7 +84,7 @@ if __name__ == '__main__':
 
     print "Starting API Server"
     options = {
-        'bind': '%s:%s' % ('0.0.0.0', '8080'),
+        'bind': '%s:%s' % ('0.0.0.0', '80'),
         'workers': 1,
         'timeout' : 100000
     }
@@ -93,7 +96,7 @@ if __name__ == '__main__':
 
     # things will handle all requests to the '/pump' URL path
     app.add_route('/', webpage)
-    app.add_static_route('/static', '/Users/eashan/PycharmProjects/syringePump/static')
+    app.add_static_route('/static', '/home/pi/work/syringePump/static')
     app.add_route('/pump', pump)
 
     SyringePumpApp(app, options).run()
